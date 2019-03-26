@@ -1,0 +1,43 @@
+#option domain-name "WORKGROUP";
+#option domain-name-servers 1.1.1.1, 1.0.0.1;
+
+# default-lease-time 600;
+# max-lease-time 7200;
+
+ddns-updates off;
+ddns-update-style none;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+#authoritative;
+
+# Use this to send dhcp log messages to a different log file (you also
+# have to hack syslog.conf to complete the redirection).
+#log-facility local7;
+
+# Este servidor DHCP solamente atenderá peticiones DHCP de tipo PXE
+allow booting;
+allow bootp;
+
+# Reglas para identificar peticiones DHCP desde clientes PXE y Etherboot 
+
+class "pxe" {
+match if substring (option vendor-class-identifier, 0, 9) = "PXEClient";
+}
+class "etherboot" {
+match if substring (option vendor-class-identifier, 0, 9) = "Etherboot";
+}
+
+subnet 172.168.1.0 netmask 255.255.255.0 {
+   option broadcast-address 172.168.1.255;
+   option routers 172.168.1.1;
+   filename "pxelinux.0";
+   range 172.168.1.100 172.168.1.150;
+   default-lease-time 300;
+   max-lease-time 300;
+   next-server tftp;
+   group {
+     default-lease-time 86400;
+     max-lease-time 86400;
+   }
+}

@@ -1,0 +1,6 @@
+---
+- hosts: CENTRAL
+  roles:
+     - central
+  
+

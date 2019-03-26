@@ -1,0 +1,11 @@
+DEFAULT netboot
+
+LABEL netboot
+	# warning, do modify kernel and append lines
+	# append parameters via TFTP_DEFAULT_KERNEL_PARAMETERS in /usr/lib/SLEPOS/defaults or LDAP scPxeFileTemplate object
+	# change kernel via image placement in a user defined scDistributionContainer
+        kernel boot/linux
+	append initrd=boot/initrd  panic=60 ramdisk_size=710000 ramdisk_blocksize=4096 vga=0x314 splash=silent mac_separator=":"  rd.kiwi.install.pxe rd.kiwi.install.image=nfs://192.168.1.10/srv/tftpboot/image/Tumbleweed64.xz
+LABEL localboot
+	localboot 0
+

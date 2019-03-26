@@ -1,0 +1,49 @@
+# roles/pxeserver/tasks/main.yml
+---
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ pxeserver_packages }}"
+  tags: pxeserver
+
+- name: Create directory for PXEboot related files
+  file:
+    path: "{{ pxeserver_path }}"
+    state: directory
+  tags: pxeserver
+
+- name: ATFTP configuration for PXE server
+  template:
+    src: etc_sysconfig_atftpd.j2
+    dest: /etc/sysconfig/atftpd
+    owner: root
+    group: root
+    mode: '0644'
+    #notify: restart atftpd
+  tags: pxeserver
+ 
+- name: Apache configuration for PXE server
+  template:
+    src: apache2_default-server.conf.j2
+    dest: /etc/apache2/default-server.conf
+    owner: root
+    group: root
+    mode: '0644'
+    #notify: restart apache2
+  tags: pxeserver
+
+- name: Ensure services are restarted
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  with_items: "{{ pxeserver_services }}"
+  tags: pxeserver
+
+- name: Copy pxe components
+  copy:
+    src: pxe_tftpboot/{{ item }}
+    dest: /srv/tftpboot/
+  with_items: "{{ pxe_items }}"
+  tags: pxeserver

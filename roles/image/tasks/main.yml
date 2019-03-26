@@ -1,0 +1,17 @@
+# roles/image/tasks/main.yml
+---
+# tasks file for image
+
+- name: copia componentes de la imagen OEM
+  copy:
+    src: "{{ item }}"
+    dest: /srv/www/htdocs/
+  with_items: "{{ htdocs }}"
+  tags: image
+
+- name: copia initrd y kernel boot
+  copy:
+    src: "{{ item }}"
+    dest: /srv/tftpboot/boot/
+  with_items: "{{ boot }}"
+  tags: image

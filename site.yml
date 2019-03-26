@@ -1,0 +1,6 @@
+---
+- hosts: STORE
+  roles:
+     - pxeserver
+     - image
+

@@ -1,0 +1,46 @@
+# roles/pxeserver/vars/main.yml
+---
+
+pxeserver_packages:
+  - atftp
+  - dhcp-server
+  - apache2
+  - kiwi-pxeboot
+  - syslinux
+  - ImageMagick
+
+pxeserver_services:
+  - dhcpd
+  - apache2
+  - atftpd.socket
+
+pxeserver_files:
+  - /usr/share/syslinux/pxelinux.0
+  - /usr/share/syslinux/vesamenu.c32
+  - /usr/share/syslinux/reboot.c32
+
+pxeserver_path:
+  - /srv/tftpboot
+  - /srv/tftpboot/boot
+  - /srv/tftpboot/image
+  - /srv/tftpboot/KIWI
+  - /srv/tftpboot/pxelinux.cfg
+  - /srv/tftpboot/upload
+  - /srv/www/htdocs
+
+pxe_items:
+  - boot
+  - pxelinux.0
+  - pxelinux.cfg
+  - reboot.c32
+  - vesamenu.c32
+  - image
+
+image:
+  - Tumbleweed64.md5
+  - Tumbleweed64.xz 
+  - Tumbleweed64.initrd
+  - Tumbleweed64.kernel
+
+DIRTFTP: /srv/tftpboot/
+DIRHTTP: /srv/www/

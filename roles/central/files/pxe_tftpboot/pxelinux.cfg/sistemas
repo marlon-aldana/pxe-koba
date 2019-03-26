@@ -1,0 +1,42 @@
+DEFAULT vesamenu.c32
+PROMPT 300
+
+MENU TITLE Sistemas operativos
+MENU RESOLUTION 1024 768
+MENU COLOR SEL 0 #FF00DFDF #EE000000 STD
+MENU COLOR HOTSEL 0 #FF00DFDF #EE000000 STD
+MENU BACKGROUND pxelinux.cfg/wallpaper.jpg
+# Format is: MENU COLOR <Item> <ANSI Seq.> <foreground> <background> <shadow type>
+
+MENU COLOR border      0  #ffffffff #00000000 std      # The wire-frame border
+MENU COLOR title       0  #00D4D7 #00000000 std      # Menu title text
+MENU COLOR tabmsg      0  #6DF303 #00000000 std      # Tab text
+MENU COLOR timeout_msg 0  #8000dfdf #00000000 std      # Timout text
+MENU COLOR cmdmark     0  #c000ffff #00000000 std    # Command line marker - The '> ' on the left when editing an option
+MENU COLOR cmdline     0  #c0ffffff #00000000 std      # Command line - The text being edited 
+
+MENU TABMSG Presiona [TAB] para editar las opciones de arranque.
+
+LABEL 0
+        MENU LABEL ^0. Inicio
+        KERNEL vesamenu.c32
+        APPEND pxelinux.cfg/default
+        TEXT HELP
+        Vuelve a la pantalla anterior.
+        ENDTEXT
+
+MENU SEPARATOR
+
+LABEL EMPTY
+        MENU LABEL Sistemas de 64 bits:
+        MENU DISABLE
+
+LABEL 1
+        MENU LABEL ^1. OpenSUSE TumbleWeed POS OEM
+        LINUX boot/linux
+        INITRD boot/initrd
+        append initrd=boot/initrd  rd.kiwi.install.pxe rd.kiwi.install.image=http://172.168.1.10/Tumbleweed64.xz splash
+ #       append initrd=boot/initrd vga=0x314 rd.kiwi.debug rd.kiwi.install.pxe rd.kiwi.install.image=tftp://172.168.1.10/image/Tumbleweed64.xz
+        TEXT HELP
+        Instala OpenSUSE TumbleWeed POS OEM
+        ENDTEXT

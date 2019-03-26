@@ -1,0 +1,19 @@
+---
+# vars file for image
+
+
+boot:
+ - initrd
+ - linux
+
+htdocs:
+ - Tumbleweed64.initrd
+ - Tumbleweed64.kernel
+ - Tumbleweed64.md5
+ - Tumbleweed64.xz
+
+srv_tftpboot_boot:
+ - /srv/tftpboot/boot/
+ 
+srv_www_htdocs:
+ - /srv/www/htdocs/

@@ -1,0 +1,58 @@
+DEFAULT vesamenu.c32
+PROMPT 0
+TIMEOUT 300
+ONTIMEOUT 0
+NOESCAPE 1
+
+MENU TITLE Opciones de arranque
+MENU RESOLUTION 1024 768
+MENU BACKGROUND pxelinux.cfg/wallpaper.jpg
+
+# Format is: MENU COLOR <Item> <ANSI Seq.> <foreground> <background> <shadow type>
+
+MENU COLOR border      0  #ffffffff #00000000 std      # The wire-frame border
+MENU COLOR title       0  #00D4D7 #00000000 std      # Menu title text
+MENU COLOR sel         0  #6DF303 #ee000000 std      # Selected menu option
+MENU COLOR hotsel      0  #6DF303 #ee000000 std      # The selected hotkey (set with ^ in MENU LABEL)
+MENU COLOR tabmsg      0  #6DF303 #00000000 std      # Tab text
+MENU COLOR timeout_msg 0  #8000dfdf #00000000 std      # Timout text
+MENU COLOR cmdmark     0  #c000ffff #00000000 std    # Command line marker - The '> ' on the left when editing an option
+MENU COLOR cmdline     0  #c0ffffff #00000000 std      # Command line - The text being edited 
+
+MENU COLOR SEL 0 #FF00DFDF #EE000000 STD
+MENU COLOR HOTSEL 0 #FF00DFDF #EE000000 STD
+MENU AUTOBOOT El arranque predeterminado se activa en # segundo{,s}.
+MENU TABMSG Presiona [TAB] para editar las opciones de arranque.
+
+LABEL 0
+        MENU LABEL ^0. Arrancar desde el disco duro
+        LOCALBOOT 0
+        TEXT HELP
+        Para arrancar desde el disco duro pulsa Enter.
+        ENDTEXT
+
+MENU SEPARATOR
+
+LABEL 1
+        MENU LABEL ^1. Reiniciar
+        COM32 reboot.c32
+
+MENU SEPARATOR
+
+LABEL 2
+        MENU LABEL ^2. Herramientas
+        KERNEL vesamenu.c32
+        APPEND pxelinux.cfg/tools
+        TEXT HELP
+        Antivirus, clonado, herramientas de particionado, etc.
+        ENDTEXT
+
+MENU SEPARATOR
+
+LABEL 2
+        MENU LABEL ^3. Sistemas operativos
+        KERNEL vesamenu.c32
+        APPEND pxelinux.cfg/sistemas
+        TEXT HELP
+        Muestra la lista de sistemas operativos disponibles
+        ENDTEXT

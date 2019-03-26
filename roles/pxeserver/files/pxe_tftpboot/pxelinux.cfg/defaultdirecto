@@ -1,0 +1,10 @@
+DEFAULT netboot
+
+LABEL netboot
+        kernel boot/linux
+    	append initrd=boot/initrd
+	#append initrd=boot/initrd vga=0x314 panic=60 ramdisk_size=710000 ramdisk_blocksize=4096 rd.kiwi.install.pxe rd.kiwi.install.image=nfs:/172.168.1.10/srv/tftpboot/image/Tumbleweed64.md5
+        append initrd=boot/initrd  rd.kiwi.install.pxe rd.kiwi.install.image=http://172.168.1.10/Tumbleweed64.xz splash
+LABEL localboot
+	localboot 0
+
